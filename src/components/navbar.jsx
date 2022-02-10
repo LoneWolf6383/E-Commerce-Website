@@ -36,10 +36,10 @@ const SearchContainer = styled.div`
   padding: 5px;
   align-items:center;
   display:flex;
-  width:50%;
+  width:35%;
 `
-const Input = styled.div`
-  border:none;
+const Input = styled.input`
+  width: 100%;
 `
 const Logo = styled.div`
   cursor:pointer;
