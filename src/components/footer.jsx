@@ -2,9 +2,12 @@ import styled from 'styled-components';
 import React from 'react'
 import { Facebook, Instagram, Mail, PhoneCallbackOutlined, Room } from '@mui/icons-material';
 import { Twitter } from '@material-ui/icons';
+import {Mobile} from '../responsive'
 
 const Container = styled.div`
   display: flex;
+  ${Mobile({flexDirection:"column"})}
+  
 `;
 const Left = styled.div`
   flex: 1;
@@ -15,10 +18,13 @@ const Left = styled.div`
 const Center = styled.div`
   flex: 1;
   padding: 20px;
+  ${Mobile({display:"none"})}
 `;
 const Right = styled.div`
   flex: 1;
   padding: 20px;
+  ${Mobile({backgroundColor:"rgb(255, 255, 255)"})}
+
 `;
 
 const Logo = styled.h1`

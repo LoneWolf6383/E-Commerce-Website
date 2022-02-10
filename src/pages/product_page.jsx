@@ -5,6 +5,7 @@ import Announcements from '../components/announcements';
 import { Newsletter } from '../components/newsletter';
 import { Footer } from '../components/footer';
 import { Remove , Add } from '@material-ui/icons'
+import { Mobile } from '../responsive';
 
 const Container= styled.div`
   
@@ -12,14 +13,23 @@ const Container= styled.div`
 const Wrapper= styled.div`
   padding: 50px;
   display: flex;
+  ${Mobile({padding:"10px",flexDirection:"column"})}
+
 `;
 const ImageContainer = styled.div`
   flex:1;
 `;
 const Image= styled.img`
+  width: 100px;
+  height: 90vh;
+  object-fit: cover;
+  ${Mobile({height:"40vh"})}
 `;
 const InfoContainer = styled.div`
+  flex: 1;
   padding: 0px 50px;
+  ${Mobile({padding:"10px"})}
+
 `;
 
 const Title = styled.h1`
@@ -44,6 +54,8 @@ const FilterContainer = styled.div`
   width: 50%;
   margin: 30px 0px;
   justify-content: space-between;
+  ${Mobile({width:"100%"})}
+
 `;
 
 const FilterTitle = styled.span`
@@ -69,14 +81,17 @@ const FilterSizeOption = styled.option`
 const AddContainer = styled.div`
   display: flex;
   align-content: center;
-  width: 50%;
+  width:50%;
   justify-content: space-between;
   cursor:pointer;
+  ${Mobile({width:"100%"})}
+
 `;
 const AmountContainer = styled.div`
   display: flex; 
   align-items: center;
   justify-content: center;
+  ${Mobile({width:"100%"})}
 `;
 const Amount = styled.span`
   width: 30px;
@@ -89,12 +104,12 @@ const Amount = styled.span`
   margin: 0px 5px;
 `;
 const Button = styled.button`
-  padding: 15px;
+  padding: 10px;
   border:2px solid teal;
   background-color: white;
   cursor: pointer;
   font-weight: 500;
-
+  width: 100%;
   &:hover{
     cursor:pointer ;
     background-color: #7cecec;
