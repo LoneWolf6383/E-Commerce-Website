@@ -5,6 +5,7 @@ import { Productpage } from "./pages/product_page";
 import { Register } from "./pages/register";
 import { LogIn } from "./pages/login";
 import { Cart } from "./pages/cart";
+import { Pay } from "./pages/pay";
 
 const App = () => {
   return(   
