@@ -3,7 +3,7 @@ const verifyToken = require('./verifyToken');
 const router = require('express').Router();
 
 //Create
-router.post("/",verifyToken,async(req,res)=>{
+router.post("/",verifyToken.verifyTokenAndAuthorization,async(req,res)=>{
     const newCart = new Cart(req.body)
 
     try {

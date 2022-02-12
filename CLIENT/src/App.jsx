@@ -7,6 +7,17 @@ import { LogIn } from "./pages/login";
 import { Cart } from "./pages/cart";
 
 const App = () => {
-  return <Cart/>;
+  return(   
+    <Router>
+      <Switch>
+        <Route path="/pay">
+          <Pay/>
+        </Route>
+        <Route path="/success">
+          <Success/>
+        </Route>
+      </Switch>
+    </Router>
+  );
 };
 export default App;
