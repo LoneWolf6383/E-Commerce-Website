@@ -6,7 +6,7 @@ import { Categories } from '../components/category';
 import { Products } from '../components/products';
 import { Newsletter } from '../components/newsletter';
 import { Footer } from '../components/footer';
-const Home = () => {
+export const Home = () => {
   return <div>
      <Announcements/>
      <Navbar/>
@@ -17,5 +17,3 @@ const Home = () => {
      <Footer/>
   </div>;
 };
-
-export default Home
