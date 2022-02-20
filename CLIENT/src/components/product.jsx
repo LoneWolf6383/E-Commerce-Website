@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import React from 'react';
 import { FavoriteBorderOutlined,SearchOutlined, ShoppingCartOutlined } from '@material-ui/icons/index';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Info  = styled.div`
   opacity: 0;
@@ -59,8 +63,6 @@ const Circle = styled.div`
   background-color: white;
   position: absolute;
 `;
-
-
 export const Product = ({item}) => {
   return <Container>
       <Circle></Circle>
@@ -70,11 +72,13 @@ export const Product = ({item}) => {
                     <ShoppingCartOutlined/>
                 </Icon>
                 <Icon>
+                  <Link to={`/product/${item._id}`}>
                     <SearchOutlined/>
+                  </Link>
                 </Icon>
                 <Icon>
                     <FavoriteBorderOutlined/>
                 </Icon>
             </Info>
-  </Container>;
-};
+  </Container>
+}

@@ -6,6 +6,13 @@ import { Newsletter } from '../components/newsletter';
 import { Footer } from '../components/footer';
 import { Remove , Add } from '@material-ui/icons'
 import { Mobile } from '../responsive';
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import {publicRequest} from '../requestMethods'
+import { useEffect } from 'react';
+import axios from 'axios';
+import { addProduct } from '../redux/cartRedux';
+import { useDispatch } from 'react-redux';
 
 const Container= styled.div`
   
@@ -117,44 +124,71 @@ const Button = styled.button`
 `;
 
 export const Productpage = () => {
+    const location = useLocation()
+    const id = location.pathname.split("/")[2] 
+    const [quantity,setquantity] = useState()
+    const [product , setProduct] = useState({})
+    const [color , setColor] = useState({})
+    const [size , setSize] = useState({})
+    const dispatch = useDispatch()
+    useEffect(()=>{
+      const getProduct = async ()=>{
+        try {
+        const res = await publicRequest.get("/products/find/"+id)
+        setProduct(res.data)
+        } catch (error) {
+          
+        }
+      }
+      getProduct()
+    },[id])
+
+    const handleQuantity = (type)=>{
+      if(type==="dec")
+        quantity>1 && setquantity(quantity-1)
+      else
+        setquantity(quantity+1)
+    }
+
+    const handleClick = () =>{
+      dispatch (addProduct({...product,quantity,color,size}))
+    }
+
   return (
     <Container>
         <Navbar/>
         <Announcements/>
         <Wrapper>
             <ImageContainer>
-                <Image src="https://tinyurl.com/yc3u5ww4"/>
+                <Image src={product.img}/>
             </ImageContainer>
             <InfoContainer>
-                <Title>Denim Jumpsuit</Title>
-                <Description>A shirt is a cloth garment for the upper body (from the neck to the waist). Originally an undergarment worn exclusively by men, it has become, in American English, a catch-all term for a broad variety of upper-body garments and undergarments.</Description>
-                <Price>Rs.200</Price>
+                <Title>{product.title}</Title>
+                <Description>{product.desc}</Description>
+                <Price>{product.price}</Price>
                 <FilterContainer>
                     <Filter>
                         <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="black"/>
-                            <FilterColor color="blue"/>
-                            <FilterColor color="red"/>
+                            {product.color?.map(c=>(
+                              <FilterColor color={c} key={c} onClick={()=>setColor(c)}/>
+                            ))}
                     </Filter>
                     <Filter>
                         <FilterTitle>Size</FilterTitle>
-                        <FilterSize>
-                            <FilterSizeOption>XS</FilterSizeOption>
-                            <FilterSizeOption>S</FilterSizeOption>
-                            <FilterSizeOption>M</FilterSizeOption>
-                            <FilterSizeOption>L</FilterSizeOption>
-                            <FilterSizeOption>XL</FilterSizeOption>
-                            <FilterSizeOption>xXL</FilterSizeOption>
+                        <FilterSize onChange={e=>setSize(e.target.value)}>
+                          {product.size?.map(s=>(
+                            <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                          ))}
                         </FilterSize>
                     </Filter>
                 </FilterContainer>
                 <AddContainer>
                       <AmountContainer>
-                        <Remove/>
-                          <Amount>1</Amount>
-                        <Add></Add>
+                        <Remove onClick={()=>handleQuantity("dec")}/>
+                          <Amount>{quantity}</Amount>
+                        <Add onClick={()=>handleQuantity("inc")}/>
                       </AmountContainer>
-                    <Button>Add to Cart</Button>
+                    <Button onClick={handleClick}>Add to Cart</Button>
                 </AddContainer>
             </InfoContainer>
         </Wrapper>
